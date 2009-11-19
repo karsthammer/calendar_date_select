@@ -38,7 +38,11 @@ Date.prototype.toFormattedString = function(include_time){
   if (include_time) { hour = this.getHours(); str += " " + this.getAMPMHour() + ":" + this.getPaddedMinutes() + " " + this.getAMPM() }
   return str;
 }
-Date.parseFormattedString = function(string) { return new Date(string);}
+Date.parseFormattedString = function(string) {
+	english_months = $w("January February March April May June July August September October November December");
+	for(i = 0; i < 11; i++) { string = string.replace(new RegExp(Date.months[i], 'i'), english_months[i]); }
+	return new Date(string);
+}
 Math.floor_to_interval = function(n, i) { return Math.floor(n/i) * i;}
 window.f_height = function() { return( [window.innerHeight ? window.innerHeight : null, document.documentElement ? document.documentElement.clientHeight : null, document.body ? document.body.clientHeight : null].select(function(x){return x>0}).first()||0); }
 window.f_scrollTop = function() { return ([window.pageYOffset ? window.pageYOffset : null, document.documentElement ? document.documentElement.scrollTop : null, document.body ? document.body.scrollTop : null].select(function(x){return x>0}).first()||0 ); }
